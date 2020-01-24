@@ -65,7 +65,9 @@ function! NewTask(direction)
     exec 'normal >>'
   endif
 
-  startinsert!
+  call AddAttribute('created', strftime(s:dateFormat))
+  exec 'normal 26h'
+  startinsert
 endfunc
 
 function! SetLineMarker(marker)
