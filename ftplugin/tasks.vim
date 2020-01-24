@@ -145,7 +145,6 @@ function! TaskComplete()
       let l:projects = GetProjects()
       call SetLineMarker(g:TasksMarkerDone)
       call AddAttribute('done', strftime(s:dateFormat))
-      call AddAttribute('project', join(l:projects, ' / '))
     endif
   endif
 endfunc
