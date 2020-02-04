@@ -37,6 +37,7 @@ exec 'syn match tAttributeCompleted "' . g:TasksAttributeMarker . '\w\+\(([^)]*)
 
 syn region tTask start=/^\s*/ end=/$/ oneline keepend contains=tMarker,tAttribute
 exec 'syn region tTaskDone start="^[\s]*.*'.g:TasksAttributeMarker.'done" end=/$/ oneline contains=tMarkerComplete,tAttributeCompleted'
+exec 'syn region tTaskDone start="^\s*-" end=/$/ oneline'
 exec 'syn region tTaskCancelled start="^[\s]*.*'.g:TasksAttributeMarker.'cancelled" end=/$/ oneline contains=tMarkerCancelled,tAttributeCompleted'
 syn match tProject "^\s*.*:$"
 
@@ -46,5 +47,6 @@ hi def link tMarkerCancelled Statement
 hi def link tAttribute Special
 hi def link tAttributeCompleted Function
 hi def link tTaskDone Comment
+hi def link tTaskComment Comment
 hi def link tTaskCancelled Comment
 hi def link tProject Constant
