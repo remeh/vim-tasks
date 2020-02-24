@@ -11,12 +11,13 @@ endif
 let b:loaded_tasks = 1
 
 " MAPPINGS
-nnoremap <buffer> <leader>n :call NewTask(1)<cr>
-nnoremap <buffer> <leader>N :call NewTask(-1)<cr>
+nnoremap <buffer> <leader>n :call NewTask(1, 0)<cr>
+nnoremap <buffer> <leader>N :call NewTask(-1, 0)<cr>
+nnoremap <buffer> <leader>c :call NewTask(1, 1)<cr>
+nnoremap <buffer> <leader>C :call NewTask(-1, 1)<cr>
 nnoremap <buffer> <leader>d :call TaskComplete()<cr>
 nnoremap <buffer> <leader>x :call TaskCancel()<cr>
 nnoremap <buffer> <leader>a :call TasksArchive()<cr>
-nnoremap <buffer> <leader>t :call TaskAddTime()<cr>
 
 " GLOBALS
 
@@ -51,14 +52,15 @@ function! Trim(input_string)
     return substitute(a:input_string, '^\s*\(.\{-}\)\s*$', '\1', '')
 endfunction
 
-function! TaskAddTime()
-  call AddAttribute('time', strftime(s:dateFormat))
-endfunction
-
-function! NewTask(direction)
+function! NewTask(direction, comment)
   let l:line = getline('.')
   let l:isMatch = match(l:line, s:regProject)
-  let l:text = g:TasksMarkerBase . ' '
+
+  if a:comment == 0
+    let l:text = g:TasksMarkerBase . ' '
+  else
+    let l:text = '-'
+  endif
 
   if a:direction == -1
     exec 'normal O' . l:text
